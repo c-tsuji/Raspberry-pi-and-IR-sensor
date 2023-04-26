@@ -1,0 +1,27 @@
+import RPi.GPIO as GPIO
+import time
+
+#GPIO設定
+GPIO.setmode(GPIO.BOARD)
+
+#IR sensor pin設定
+IR_PIN = 11
+GPIO.setup(IR_PIN, GPIO.IN)
+
+def main():
+ try:
+    while True:
+      ir_value = GPIO.input(IR_PIN)
+      print("IR sensor value: ", ir_value)
+      if ir_value == 1:
+        print("No obstacle detected")
+      else:
+        print("Obstacle detected")
+      time.sleep(1.0)
+ except KeyboardInterrupt:
+    print("Exiting...")
+ finally:
+    GPIO.cleanup()   #GPIOリソースのクリーン化
+
+if __name__ == "__main__":   #プログラムスタート
+  main()
